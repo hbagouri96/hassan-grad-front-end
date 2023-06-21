@@ -4,25 +4,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import api from "~/utils/axios";
 
-const SignIn = () => {
+const SignUp = () => {
   const router = useRouter();
 
-  const [_username, setUsername] = useState("");
-  const [_password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const className = "rounded border border-gray-500/40 px-2 py-1";
 
   const handleLogin = async () => {
-    try {
-      const res = await api.post<{ username: string }>("login", {
-        _username,
-        _password,
-      });
-      localStorage.setItem("user", JSON.stringify(res.data));
-      router.push("/home");
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await api.post("signup", { username, password });
+    localStorage.setItem("user", JSON.stringify(res.data));
+    router.push("/home");
   };
 
   return (
@@ -43,10 +36,10 @@ const SignIn = () => {
         className="w-32 rounded bg-teal-500 px-2 py-1 text-gray-50 hover:bg-teal-400/80 active:bg-teal-600"
         onClick={handleLogin}
       >
-        Login
+        Sign Up
       </button>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

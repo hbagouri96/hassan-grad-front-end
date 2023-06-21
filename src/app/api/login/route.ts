@@ -1,15 +1,21 @@
 import { type NextApiRequest } from "next";
 import { NextResponse } from "next/server";
+import db from "~/server/db";
 
 interface LoginRequest extends NextApiRequest {
   json: () => Promise<{
-    hello: string;
+    _username: string;
+    _password: string;
   }>;
 }
 
 export const POST = async (req: LoginRequest) => {
-  const body = await req.json();
-  console.log(body);
-
-  return NextResponse.json(body);
+  const { _username, _password } = await req.json();
+  const res = db.query.user.findFirst({
+    columns: { username: true },
+    where: ({ username, password }, { eq, and }) =>
+      and(eq(username, _username), eq(password, _password)),
+  });
+  if (res) return NextResponse.json(res);
+  return NextResponse.json("User not found", { status: 404 });
 };

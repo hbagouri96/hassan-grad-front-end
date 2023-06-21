@@ -1,17 +1,11 @@
 import SignIn from "~/components/signIn";
-import db from "~/server/db";
+import SignUp from "~/components/signUp";
 
 const Home = () => {
-  const res = db.query.user.findFirst({
-    columns: {
-      username: true,
-      password: true,
-    },
-  });
-
   return (
-    <div>
+    <div className="flex h-screen flex-row divide-x divide-gray-500/50">
       <SignIn />
+      <SignUp />
     </div>
   );
 };
