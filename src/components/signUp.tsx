@@ -28,7 +28,7 @@ const SignUp = () => {
       />
       <input
         onChange={(event) => setPassword(event.target.value)}
-        type="text"
+        type="password"
         placeholder="Password"
         className={className}
       />
