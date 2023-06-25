@@ -18,6 +18,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  async rewrites() {
+    return [
+      {
+        source: "/py/:path*",
+        destination: "http://localhost:5000/:path*",
+      },
+    ];
+  },
 };
 
 export default config;

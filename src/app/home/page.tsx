@@ -8,6 +8,7 @@ type Prediction = {
   bedrooms: number;
   bathrooms: number;
   price: number;
+  location: string;
 };
 
 const Home = () => {
@@ -17,12 +18,12 @@ const Home = () => {
 
   const handleClick = async () => {
     try {
-      const res = await axios.post<Prediction>(
-        "http://localhost:5000/predict_home_price",
-        {
-          url,
-        }
-      );
+      const domain = url.includes("dubizzle")
+        ? "/py/dubizzlescrape"
+        : "/py/aqarmapscrape";
+      const res = await axios.post<Prediction>(domain, {
+        url,
+      });
       setPrediciton(res.data);
     } catch (e) {
       alert(e);
@@ -35,14 +36,18 @@ const Home = () => {
         <input
           className="rounded border border-gray-500 p-1"
           type="text"
-          onChange={(e) =>
-            setUrl(
-              e.target.value.replace(
-                "https://www.dubizzle.com.eg/ad/",
-                "https://www.dubizzle.com.eg/en/ad/"
-              )
-            )
-          }
+          onChange={(e) => {
+            let reqUrl = e.target.value.replace(
+              "https://www.dubizzle.com.eg/ad/",
+              "https://www.dubizzle.com.eg/en/ad/"
+            );
+            reqUrl = e.target.value.replace(
+              "https://www.aqarmap.com.eg/ar/",
+              "https://www.aqarmap.com.eg/en/"
+            );
+
+            setUrl(reqUrl);
+          }}
           placeholder="Dubizzle URL"
         />
         <button
@@ -53,7 +58,7 @@ const Home = () => {
         </button>
       </div>
       {prediciton && (
-        <div className="grid w-1/2 grid-flow-col grid-cols-4 text-center">
+        <div className="mt-4 grid w-1/2 grid-flow-col grid-cols-5 text-center">
           <div>
             <p className="col-span-1">Area (m²)</p>
             <p>{prediciton.area}</p>
@@ -69,6 +74,10 @@ const Home = () => {
           <div>
             <p className="col-span-1">Price</p>
             <p>{prediciton.price}</p>
+          </div>
+          <div>
+            <p className="col-span-1">Location</p>
+            <p>{prediciton.location}</p>
           </div>
         </div>
       )}
