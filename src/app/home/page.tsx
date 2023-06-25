@@ -48,7 +48,7 @@ const Home = () => {
 
             setUrl(reqUrl);
           }}
-          placeholder="Dubizzle URL"
+          placeholder="URL"
         />
         <button
           onClick={handleClick}
