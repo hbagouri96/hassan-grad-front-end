@@ -1,16 +1,16 @@
-import { type NextApiRequest } from "next";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { NextResponse } from "next/server";
 import db from "~/server/db";
 import { user } from "~/server/schema";
 
-interface SignUpRequest extends NextApiRequest {
-  json: () => Promise<{
-    username: string;
-    password: string;
-  }>;
-}
+// interface SignUpRequest extends NextApiRequest {
+//   json: () => Promise<{
+//     username: string;
+//     password: string;
+//   }>;
+// }
 
-export const POST = async (req: SignUpRequest) => {
+export const POST = async (req: Request) => {
   const { username, password } = await req.json();
   try {
     const res = await db
