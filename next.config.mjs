@@ -22,7 +22,7 @@ const config = {
     return [
       {
         source: "/py/:path*",
-        destination: "http://localhost:5000/:path*",
+        destination: "https://grad-apis-71tiesg88-bahnasawy.vercel.app/:path*",
       },
     ];
   },

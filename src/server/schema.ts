@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
-import { real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { real, pgTable, text } from "drizzle-orm/pg-core";
 
-export const user = sqliteTable("user", {
+export const user = pgTable("user", {
   username: text("username").primaryKey(),
   password: text("password").notNull(),
 });
@@ -10,7 +10,7 @@ export const userRelations = relations(user, ({ many }) => ({
   history: many(history),
 }));
 
-export const history = sqliteTable("history", {
+export const history = pgTable("history", {
   url: text("url"),
   price: real("price"),
   timestamp: text("timestamp"),

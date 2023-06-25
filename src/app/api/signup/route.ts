@@ -13,11 +13,10 @@ interface SignUpRequest extends NextApiRequest {
 export const POST = async (req: SignUpRequest) => {
   const { username, password } = await req.json();
   try {
-    const res = db
+    const res = await db
       .insert(user)
       .values({ username, password })
-      .returning()
-      .run();
+      .returning();
     return NextResponse.json(res);
   } catch (e) {
     return NextResponse.json("User already exists", { status: 500 });

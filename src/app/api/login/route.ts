@@ -11,7 +11,7 @@ interface LoginRequest extends NextApiRequest {
 
 export const POST = async (req: LoginRequest) => {
   const { _username, _password } = await req.json();
-  const res = db.query.user.findFirst({
+  const res = await db.query.user.findFirst({
     columns: { username: true },
     where: ({ username, password }, { eq, and }) =>
       and(eq(username, _username), eq(password, _password)),
