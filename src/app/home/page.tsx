@@ -18,7 +18,7 @@ const Home = () => {
   const handleClick = async () => {
     try {
       const res = await axios.post<Prediction>(
-        "http://localhost:5000/getPrediction",
+        "http://localhost:5000/predict_home_price",
         {
           url,
         }
