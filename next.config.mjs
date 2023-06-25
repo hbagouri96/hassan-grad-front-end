@@ -18,6 +18,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  async rewrites() {
+    return [
+      {
+        source: "/py/:path*",
+        destination: "https://grad-apis-71tiesg88-bahnasawy.vercel.app/:path*",
+      },
+    ];
+  },
 };
 
 export default config;
