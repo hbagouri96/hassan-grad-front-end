@@ -22,7 +22,7 @@ const config = {
     return [
       {
         source: "/py/:path*",
-        destination: "https://grad-apis-71tiesg88-bahnasawy.vercel.app/:path*",
+        destination: "https://api-s-flax.vercel.app/:path*",
       },
     ];
   },
